@@ -222,7 +222,10 @@ func do_attack_wasps():
 		pass
 
 func do_spawn_bee(force: bool = false):
-	if Global.state.wax > 0 or force:
+	var bees = get_tree().get_nodes_in_group("bee").filter(func a(b):
+		return b.process_mode != PROCESS_MODE_DISABLED
+		)
+	if (Global.state.wax > 0 and bees.size() < 5) or force:
 		if !force:
 			Global.state.wax -= 1
 
