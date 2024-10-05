@@ -31,6 +31,9 @@ jobs:
         with:
           name: ${{ env.EXPORT_NAME }}-windows
           path: build/windows
+      - name: Upload to itch.io
+        run: |
+          butler push build/windows tanis2000/badabees:windows
 
   export-linux:
     name: Linux Export
