@@ -33,6 +33,7 @@ jobs:
           path: build/windows
       - name: Upload to itch.io
         run: |
+          export BUTLER_API_KEY=${{ secrets.BUTLER_API_KEY }}
           butler push build/windows tanis2000/badabees:windows
 
   export-linux:
@@ -84,15 +85,15 @@ jobs:
         with:
           name: ${{ env.EXPORT_NAME }}-web
           path: build/web
-      - name: Install rsync 📚
-        run: |
-          apt-get update && apt-get install -y rsync
-      - name: Deploy to GitHub Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v4
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: build/web # The folder the action should deploy.
-          token: ${{ secrets.TOKEN }}
+      # - name: Install rsync 📚
+      #   run: |
+      #     apt-get update && apt-get install -y rsync
+      # - name: Deploy to GitHub Pages 🚀
+      #   uses: JamesIves/github-pages-deploy-action@releases/v4
+      #   with:
+      #     branch: gh-pages # The branch the action should deploy to.
+      #     folder: build/web # The folder the action should deploy.
+      #     token: ${{ secrets.TOKEN }}
 
   export-mac:
     name: Mac Export
