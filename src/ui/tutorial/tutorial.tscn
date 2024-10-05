@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://bf7ixkrk7wshu"]
+
+[ext_resource type="Script" path="res://src/ui/tutorial/tutorial.gd" id="1_idjo6"]
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource("1_idjo6")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -550.0
+offset_top = -300.0
+offset_right = 550.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Use the keyboard to control your bees.
+
+ [b]1[/b] to have them say \"BEE\"
+[b]2[/b] to have them say \"BADA\"
+[b]3[/b] to have them say \"BON\"
+[b]4[/b] to have them say \"BOO\"
+
+The combination of those sounds will make your bees do something different. Learn the following combinations to play:
+
+- BEE BEE BADA BEE to have your bees attack the wasps (cost: 1 wax)
+- BADA BADA BADA BEE call for help and bring one more bee to your hive (cost: 1 wax)
+- BON BON BADA BEE to use your wax to heal the hive (cost: 1 wax)
+- BOO BOO BON BEE to have your bees collect some pollen from the flowers to create some wax (cost: 0 wax)
+
+Do your best to survive as long as possible"
+
+[node name="CloseButton" type="Button" parent="Panel/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Close"

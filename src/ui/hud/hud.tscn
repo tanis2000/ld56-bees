@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dgvjrr8utn2ou"]
+[gd_scene load_steps=4 format=3 uid="uid://dgvjrr8utn2ou"]
 
 [ext_resource type="Script" path="res://src/ui/hud/hud.gd" id="1_nw8og"]
+[ext_resource type="LabelSettings" uid="uid://dc3wjmgoagemu" path="res://src/ui/hud/hud_label_settings.tres" id="2_hjcw1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0neir"]
 bg_color = Color(1, 0, 0.145098, 0)
@@ -23,4 +24,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0neir")
+
+[node name="Wax" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Wax: 0"
+label_settings = ExtResource("2_hjcw1")
+
+[node name="Hive Health" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -87.5
+offset_right = 87.5
+offset_bottom = 36.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+text = "Hive Health: 0"
+label_settings = ExtResource("2_hjcw1")
+
+[node name="Time" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -187.0
+offset_bottom = 23.0
+grow_horizontal = 0
+size_flags_horizontal = 0
+text = "Time elapsed: 0 seconds"
+label_settings = ExtResource("2_hjcw1")

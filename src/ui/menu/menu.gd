@@ -27,7 +27,7 @@ func _on_request_completed(result, response_code, headers, body):
 	print(json)
 	for member in json["members"]:
 		var label := Label.new()
-		label.text = "{0}. {1} {2}".format([member["rank"], member["score"], member["publicID"]])
+		label.text = "{0}. {1} {2}".format([member["rank"], Utils.hms(member["score"]), member["publicID"]])
 		leaderboard.add_child(label)
 
 func _on_start_pressed():

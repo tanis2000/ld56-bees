@@ -1,6 +1,9 @@
 extends Node2D
 
 @onready var damage = $CanvasLayer/Damage
+@onready var wax = $CanvasLayer/Wax
+@onready var health = $"CanvasLayer/Hive Health"
+@onready var time_elapsed = $CanvasLayer/Time
 
 var damageFlashTimer := 0.0
 
@@ -16,6 +19,9 @@ func _process(delta):
 		if damageFlashTimer <= 0.0:
 			damage.modulate.a = 0.0
 
+	health.text = "Hive health: {0}".format([Global.state.health])
+	time_elapsed.text = "Time elapsed: {0}".format([Utils.hms(Global.state.time_elapsed)])
+	wax.text = "Wax: {0}".format([Global.state.wax])
 
 func flash_damage():
 	damageFlashTimer = 1.0

@@ -5,7 +5,8 @@ extends RigidBody2D
 enum BeeState {
 	BEE_STATE_CHASE,
 	BEE_STATE_IDLE,
-	BEE_STATE_GO_HOME
+	BEE_STATE_GO_HOME,
+	BEE_STATE_PICK_WAX,
 }
 
 var freq := 0.1
@@ -41,6 +42,20 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		var vel = dir * speed
 
 		linear_velocity = vel
+	elif game_state == BeeState.BEE_STATE_PICK_WAX:
+		if position.distance_to(target.position) <= 70:
+			game_state = BeeState.BEE_STATE_GO_HOME
+
+		var dir = target.position - position
+		var dist = dir.length()
+		dir = dir.normalized()
+
+		var speedScale = 1.0 - (1.0 / ((max(0.0, dist - 60.0) / 50.0) + 1.0))
+		var speed = max(max_speed/3.33, speedScale * max_speed)
+
+		var vel = dir * speed
+
+		linear_velocity = vel
 	else :
 		if position.distance_to(home_position) <= 10:
 			game_state = BeeState.BEE_STATE_IDLE
@@ -64,3 +79,7 @@ func hit_enemy(enemy:Node2D):
 func chase_target(t: Node2D):
 	target = t
 	game_state = BeeState.BEE_STATE_CHASE
+
+func pick_wax(t: Node2D):
+	target = t
+	game_state = BeeState.BEE_STATE_PICK_WAX

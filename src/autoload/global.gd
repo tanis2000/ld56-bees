@@ -39,6 +39,8 @@ var state := {
     health = 10,
     initial_bees = 1,
     initial_wasps = 1,
+    time_elapsed = 0.0,
+    wax = 0,
 }
 
 var stats := {

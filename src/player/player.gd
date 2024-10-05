@@ -14,6 +14,8 @@ var hitTimer := 0.0
 var aimAngle := Vector2.ZERO
 
 var bpm = 80
+var command_complete_time := 1.0
+var input_complete_time := 0.2
 var input_timer := 0.0
 var input_min_timer := 0.0
 var command: Array[Global.PlayerAction] = []
@@ -22,27 +24,30 @@ func _ready():
 	Global.player = self
 
 func _process(delta):
+	if Global.main.paused:
+		return
+
 	input_timer -= delta
 	input_min_timer -= delta
 
 	if Input.is_action_pressed("bee") and input_min_timer <= 0:
-		input_timer = bpm / 60.0
-		input_min_timer = 0.1
+		input_timer = command_complete_time
+		input_min_timer = input_complete_time
 		perform_action(Global.PlayerAction.PLAYER_ACTION_BEE)
 
 	if Input.is_action_pressed("bada") and input_min_timer <= 0:
-		input_timer = bpm / 60.0
-		input_min_timer = 0.1
+		input_timer = command_complete_time
+		input_min_timer = input_complete_time
 		perform_action(Global.PlayerAction.PLAYER_ACTION_BADA)
 
 	if Input.is_action_pressed("bon") and input_min_timer <= 0:
-		input_timer = bpm / 60.0
-		input_min_timer = 0.1
+		input_timer = command_complete_time
+		input_min_timer = input_complete_time
 		perform_action(Global.PlayerAction.PLAYER_ACTION_BON)
 
 	if Input.is_action_pressed("boo") and input_min_timer <= 0:
-		input_timer = bpm / 60.0
-		input_min_timer = 0.1
+		input_timer = command_complete_time
+		input_min_timer = input_complete_time
 		perform_action(Global.PlayerAction.PLAYER_ACTION_BOO)
 
 	if input_timer <= 0 and command.size() > 0:
@@ -142,33 +147,51 @@ func perform_action(action: Global.PlayerAction):
 	match action:
 		Global.PlayerAction.PLAYER_ACTION_BEE:
 			Audio.play(preload("res://src/sfx/bee.wav"), 0.8, 1.2)
-			Utils.spawn(ActionLabel, position, Global.main.actions, {t = "1 - Bee"})
+			Utils.spawn(ActionLabel, Vector2.ZERO, Global.main.actions, {t = "1 - Bee"})
 		Global.PlayerAction.PLAYER_ACTION_BADA:
 			Audio.play(preload("res://src/sfx/bada.wav"), 0.8, 1.2)
-			Utils.spawn(ActionLabel, position, Global.main.actions, {t = "2 - Bada"})
+			Utils.spawn(ActionLabel, Vector2.ZERO, Global.main.actions, {t = "2 - Bada"})
 		Global.PlayerAction.PLAYER_ACTION_BON:
 			Audio.play(preload("res://src/sfx/bon.wav"), 0.8, 1.2)
-			Utils.spawn(ActionLabel, position, Global.main.actions, {t = "3 - Bon"})
+			Utils.spawn(ActionLabel, Vector2.ZERO, Global.main.actions, {t = "3 - Bon"})
 		Global.PlayerAction.PLAYER_ACTION_BOO:
 			Audio.play(preload("res://src/sfx/boo.wav"), 0.8, 1.2)
-			Utils.spawn(ActionLabel, position, Global.main.actions, {t = "4 - Boo"})
+			Utils.spawn(ActionLabel, Vector2.ZERO, Global.main.actions, {t = "4 - Boo"})
 		_:
 			pass
 
 func execute_command(cmd: Array[Global.PlayerAction]):
-	if cmd.size() == 4:
-		if (cmd[0] == Global.PlayerAction.PLAYER_ACTION_BEE
+	if (cmd.size() == 4
+		and cmd[0] == Global.PlayerAction.PLAYER_ACTION_BEE
 		and cmd[1] == Global.PlayerAction.PLAYER_ACTION_BEE
 		and cmd[2] == Global.PlayerAction.PLAYER_ACTION_BADA
 		and cmd[3] == Global.PlayerAction.PLAYER_ACTION_BEE):
+			Audio.play(preload("res://src/sfx/yeah.wav"), 0.8, 1.2)
+			Utils.spawn(ActionLabel, Vector2.ZERO, Global.main.actions, {t = "Yeah!"})
 			do_attack_wasps()
 
-	if cmd.size() == 4:
-		if (cmd[0] == Global.PlayerAction.PLAYER_ACTION_BADA
+	elif (cmd.size() == 4
+		and cmd[0] == Global.PlayerAction.PLAYER_ACTION_BADA
 		and cmd[1] == Global.PlayerAction.PLAYER_ACTION_BADA
 		and cmd[2] == Global.PlayerAction.PLAYER_ACTION_BADA
 		and cmd[3] == Global.PlayerAction.PLAYER_ACTION_BEE):
+			Audio.play(preload("res://src/sfx/yeah.wav"), 0.8, 1.2)
+			Utils.spawn(ActionLabel, Vector2.ZERO, Global.main.actions, {t = "Yeah!"})
 			do_spawn_bee()
+
+	elif (cmd.size() == 4
+		and cmd[0] == Global.PlayerAction.PLAYER_ACTION_BON
+		and cmd[1] == Global.PlayerAction.PLAYER_ACTION_BON
+		and cmd[2] == Global.PlayerAction.PLAYER_ACTION_BADA
+		and cmd[3] == Global.PlayerAction.PLAYER_ACTION_BEE):
+			Audio.play(preload("res://src/sfx/yeah.wav"), 0.8, 1.2)
+			Utils.spawn(ActionLabel, Vector2.ZERO, Global.main.actions, {t = "Yeah!"})
+			do_pick_wax()
+
+	else:
+		Audio.play(preload("res://src/sfx/wrong.wav"), 0.8, 1.2)
+		Utils.spawn(ActionLabel, Vector2.ZERO, Global.main.actions, {t = "Wrong!"})
+
 
 	cmd.clear()
 
@@ -192,3 +215,16 @@ func do_spawn_bee():
 	pos.x += randf_range(-100, 100)
 	pos.y += randf_range(-100, 100)
 	Utils.spawn(Bee, pos, Global.main.gameArea)
+
+func do_pick_wax():
+	var bees = get_tree().get_nodes_in_group("bee").filter(func a(b):
+		return b.process_mode != PROCESS_MODE_DISABLED
+		)
+	var flowers = get_tree().get_nodes_in_group("flower")
+
+	if flowers.size() == 0:
+		return
+
+	for bee in bees:
+		var idx := int(randf() * (flowers.size()-1))
+		bee.pick_wax(flowers[idx])
