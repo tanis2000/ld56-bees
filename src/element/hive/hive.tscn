@@ -25,4 +25,5 @@ shape = SubResource("RectangleShape2D_5qct3")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(0.811668, 0.426115, 3.85046e-07, 1)
-polygon = PackedVector2Array(-50, -50, 50, -50, 50, 50, -50, 50)
+antialiased = true
+polygon = PackedVector2Array(-18, -50, 18, -50, 30, -38, 45, -15, 50, 0, 45, 15, 30, 38, 18, 50, -18, 50, -30, 38, -45, 15, -50, 0, -45, -15, -30, -38)

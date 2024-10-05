@@ -186,6 +186,15 @@ func execute_command(cmd: Array[Global.PlayerAction]):
 		and cmd[3] == Global.PlayerAction.PLAYER_ACTION_BEE):
 			Audio.play(preload("res://src/sfx/yeah.wav"), 0.8, 1.2)
 			Utils.spawn(ActionLabel, Vector2.ZERO, Global.main.actions, {t = "Yeah!"})
+			do_heal_hive()
+
+	elif (cmd.size() == 4
+		and cmd[0] == Global.PlayerAction.PLAYER_ACTION_BOO
+		and cmd[1] == Global.PlayerAction.PLAYER_ACTION_BOO
+		and cmd[2] == Global.PlayerAction.PLAYER_ACTION_BON
+		and cmd[3] == Global.PlayerAction.PLAYER_ACTION_BEE):
+			Audio.play(preload("res://src/sfx/yeah.wav"), 0.8, 1.2)
+			Utils.spawn(ActionLabel, Vector2.ZERO, Global.main.actions, {t = "Yeah!"})
 			do_pick_wax()
 
 	else:
@@ -228,3 +237,11 @@ func do_pick_wax():
 	for bee in bees:
 		var idx := int(randf() * (flowers.size()-1))
 		bee.pick_wax(flowers[idx])
+
+func do_heal_hive():
+	var bees = get_tree().get_nodes_in_group("bee").filter(func a(b):
+		return b.process_mode != PROCESS_MODE_DISABLED
+		)
+
+	for bee in bees:
+		bee.heal_hive(Global.hive)

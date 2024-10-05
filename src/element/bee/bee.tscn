@@ -9,8 +9,9 @@ radius = 15.0
 
 [node name="Bee" type="RigidBody2D" groups=["bee"]]
 collision_layer = 8
-collision_mask = 96
+collision_mask = 1120
 gravity_scale = 0.0
+lock_rotation = true
 script = ExtResource("1_4wlhe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -18,11 +19,44 @@ shape = SubResource("CircleShape2D_7kjbq")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 2144
+collision_mask = 3168
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_k2et4")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Right Wing" type="Polygon2D" parent="Visuals"]
+color = Color(0.348346, 0.630402, 0.574733, 1)
+offset = Vector2(4.48, -4.13)
+polygon = PackedVector2Array(3, 0, 11.52, -4.68, 15.52, -2.87, 13.52, 2.13, 7.52, 4.13, 4.52, 3.13)
+
+[node name="Left Wing" type="Polygon2D" parent="Visuals"]
+scale = Vector2(-1, 1)
+color = Color(0.348346, 0.630402, 0.574733, 1)
+offset = Vector2(4.48, -4.13)
+polygon = PackedVector2Array(3, 0, 11.52, -4.68, 15.52, -2.87, 13.52, 2.13, 7.52, 4.13, 4.52, 3.13)
+
+[node name="Polygon2D" type="Polygon2D" parent="Visuals"]
 color = Color(1, 1, 0, 1)
 polygon = PackedVector2Array(0, -10, 5, -9, 9, -5, 10, 0, 9, 5, 5, 9, 0, 10, -5, 9, -9, 5, -10, 0, -9, -5, -5, -9)
+
+[node name="Right Eye" type="Polygon2D" parent="Visuals/Polygon2D"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(3, 0, 5, -2, 7, 0, 5, 2)
+
+[node name="Left Eye" type="Polygon2D" parent="Visuals/Polygon2D"]
+color = Color(0, 0, 0, 1)
+offset = Vector2(-10, 0)
+polygon = PackedVector2Array(3, 0, 5, -2, 7, 0, 5, 2)
+
+[node name="Right Antenna" type="Polygon2D" parent="Visuals/Polygon2D"]
+color = Color(0, 0, 0, 1)
+offset = Vector2(0, -10)
+polygon = PackedVector2Array(3, 1, 5, -6, 9, -8, 12, -6, 10.5559, -4.34965, 9, -6, 7, -5, 5, 2)
+
+[node name="Left Antenna" type="Polygon2D" parent="Visuals/Polygon2D"]
+scale = Vector2(-1, 1)
+color = Color(0, 0, 0, 1)
+offset = Vector2(0, -10)
+polygon = PackedVector2Array(3, 1, 5, -6, 9, -8, 12, -6, 10.5559, -4.34965, 9, -6, 7, -5, 5, 2)

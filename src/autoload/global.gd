@@ -27,6 +27,8 @@ enum PlayerAction {
     PLAYER_ACTION_BOO,
 }
 
+var spawn_count := 0
+
 var options := {
     name = "",
 	sound_volume = 0.75,

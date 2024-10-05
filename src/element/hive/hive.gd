@@ -47,3 +47,6 @@ func kill():
 	visible = false
 	Global.state.dead = true
 	Global.main.game_over()
+
+func heal(amount: float = 1.0):
+	Global.state.health += amount
