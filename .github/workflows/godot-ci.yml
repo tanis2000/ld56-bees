@@ -60,6 +60,10 @@ jobs:
         with:
           name: ${{ env.EXPORT_NAME }}-linux
           path: build/linux
+      - name: Upload to itch.io
+        run: |
+          export BUTLER_API_KEY=${{ secrets.BUTLER_API_KEY }}
+          butler push build/linux tanis/badabees:linux
 
   export-web:
     name: Web Export
@@ -85,6 +89,11 @@ jobs:
         with:
           name: ${{ env.EXPORT_NAME }}-web
           path: build/web
+      - name: Upload to itch.io
+        run: |
+          export BUTLER_API_KEY=${{ secrets.BUTLER_API_KEY }}
+          butler push build/web tanis/badabees:web
+
       # - name: Install rsync 📚
       #   run: |
       #     apt-get update && apt-get install -y rsync
@@ -119,3 +128,7 @@ jobs:
         with:
           name: ${{ env.EXPORT_NAME }}-mac
           path: build/mac
+      - name: Upload to itch.io
+        run: |
+          export BUTLER_API_KEY=${{ secrets.BUTLER_API_KEY }}
+          butler push build/mac tanis/badabees:mac
