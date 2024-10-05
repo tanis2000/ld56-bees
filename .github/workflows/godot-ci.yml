@@ -3,8 +3,8 @@ on: push
 
 env:
   GODOT_VERSION: 4.3
-  EXPORT_NAME: godot-2d-test
-  PROJECT_PATH: godot-2d-test
+  EXPORT_NAME: ld56-bees
+  PROJECT_PATH: ld56-bees
 
 jobs:
   export-windows:
