@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgvjrr8utn2ou"]
+
+[ext_resource type="Script" path="res://src/ui/hud/hud.gd" id="1_nw8og"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0neir"]
+bg_color = Color(1, 0, 0.145098, 0)
+border_width_left = 64
+border_width_top = 64
+border_width_right = 64
+border_width_bottom = 64
+border_color = Color(1, 0, 0, 1)
+border_blend = true
+
+[node name="Hud" type="Node2D"]
+script = ExtResource("1_nw8og")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Damage" type="Panel" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0neir")

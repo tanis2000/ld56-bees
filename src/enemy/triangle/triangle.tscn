@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://v3rume1ve5b2"]
+
+[ext_resource type="Script" path="res://src/enemy/triangle/triangle.gd" id="1_3loy2"]
+[ext_resource type="Script" path="res://src/enemy/enemy.gd" id="1_s4m7e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mpa55"]
+radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ob60r"]
+
+[node name="Triangle" type="RigidBody2D" groups=["enemy"]]
+collision_layer = 64
+collision_mask = 64
+gravity_scale = 0.0
+script = ExtResource("1_3loy2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mpa55")
+
+[node name="Enemy" type="Node" parent="."]
+script = ExtResource("1_s4m7e")
+health = 2.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 24
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ob60r")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(22, -1, -11, -19, -11, 18, 22, -1)
+width = 5.0
+default_color = Color(1, 0.839216, 0.0784314, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true

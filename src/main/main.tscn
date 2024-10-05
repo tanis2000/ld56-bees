@@ -1,0 +1,132 @@
+[gd_scene load_steps=11 format=3 uid="uid://cakr7qysi64ga"]
+
+[ext_resource type="Script" path="res://src/main/main.gd" id="1_8omgs"]
+[ext_resource type="PackedScene" uid="uid://bi7ub4bfr34d8" path="res://src/player/player.tscn" id="2_wngtf"]
+[ext_resource type="PackedScene" uid="uid://v3rume1ve5b2" path="res://src/enemy/triangle/triangle.tscn" id="3_q64ja"]
+[ext_resource type="PackedScene" uid="uid://dgvjrr8utn2ou" path="res://src/ui/hud/hud.tscn" id="4_o4ah5"]
+[ext_resource type="PackedScene" uid="uid://dn0mgvybnpef2" path="res://src/element/hive/hive.tscn" id="5_6wl2j"]
+[ext_resource type="PackedScene" uid="uid://batajadn6c0g0" path="res://src/element/bee/bee.tscn" id="6_hjmdq"]
+[ext_resource type="PackedScene" uid="uid://dj2c05erf3fro" path="res://src/enemy/wasp/wasp.tscn" id="6_j8yiy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgb8i"]
+size = Vector2(20, 500)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tr4we"]
+size = Vector2(500, 20)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3kxdv"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_8omgs")
+
+[node name="bg" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -896.0
+offset_top = -784.0
+offset_right = 896.0
+offset_bottom = 784.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.644748, 0.772014, 0.969747, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="gameArea" type="Node2D" parent="."]
+
+[node name="Player" parent="gameArea" instance=ExtResource("2_wngtf")]
+visible = false
+
+[node name="Triangle" parent="gameArea" instance=ExtResource("3_q64ja")]
+process_mode = 4
+position = Vector2(164.72, 0)
+
+[node name="Hive" parent="gameArea" instance=ExtResource("5_6wl2j")]
+position = Vector2(6, 108)
+
+[node name="Wasp" parent="gameArea" instance=ExtResource("6_j8yiy")]
+position = Vector2(78, -128)
+
+[node name="Bee" parent="gameArea" instance=ExtResource("6_hjmdq")]
+position = Vector2(-128, -72)
+
+[node name="BeesHome" type="Node" parent="gameArea"]
+
+[node name="left_area" type="Area2D" parent="."]
+position = Vector2(-250, 0)
+collision_layer = 2
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_area"]
+shape = SubResource("RectangleShape2D_rgb8i")
+
+[node name="ColorRect" type="ColorRect" parent="left_area/CollisionShape2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="right_area" type="Area2D" parent="."]
+position = Vector2(250, 0)
+collision_layer = 2
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_area"]
+shape = SubResource("RectangleShape2D_rgb8i")
+
+[node name="ColorRect" type="ColorRect" parent="right_area/CollisionShape2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="top_area" type="Area2D" parent="."]
+position = Vector2(0, -250)
+collision_layer = 2
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="top_area"]
+shape = SubResource("RectangleShape2D_tr4we")
+
+[node name="bottom_area" type="Area2D" parent="."]
+position = Vector2(0, 250)
+collision_layer = 2
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bottom_area"]
+shape = SubResource("RectangleShape2D_tr4we")
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Hud" parent="." instance=ExtResource("4_o4ah5")]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(0, 220)
+collision_mask = 2113
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape2D_3kxdv")
+
+[node name="Polygon2D" type="Polygon2D" parent="Floor"]
+color = Color(0.188082, 0.386695, 0.21549, 1)
+polygon = PackedVector2Array(-1000, 0, 1000, 0, 1000, 500, -1000, 500)
+
+[node name="Actions" type="Node2D" parent="."]
+position = Vector2(-200, 64)

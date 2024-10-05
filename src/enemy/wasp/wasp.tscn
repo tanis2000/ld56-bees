@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dj2c05erf3fro"]
+
+[ext_resource type="Script" path="res://src/enemy/wasp/wasp.gd" id="1_275oa"]
+[ext_resource type="Script" path="res://src/enemy/enemy.gd" id="2_wkke4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5anfh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n1pls"]
+radius = 15.0
+
+[node name="Wasp" type="RigidBody2D" groups=["enemy"]]
+collision_layer = 64
+collision_mask = 2112
+gravity_scale = 0.0
+script = ExtResource("1_275oa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5anfh")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 1032
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_n1pls")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, -10, 5, -9, 9, -5, 10, 0, 9, 5, 5, 9, 0, 10, -5, 9, -9, 5, -10, 0, -9, -5, -5, -9)
+
+[node name="Enemy" type="Node" parent="."]
+script = ExtResource("2_wkke4")

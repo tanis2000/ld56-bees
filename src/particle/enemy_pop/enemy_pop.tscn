@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://crrmxu4yg26lc"]
+
+[ext_resource type="Script" path="res://src/particle/enemy_pop/enemy_pop.gd" id="1_3ecy3"]
+
+[node name="EnemyPop" type="Node2D"]
+script = ExtResource("1_3ecy3")

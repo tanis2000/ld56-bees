@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dn0mgvybnpef2"]
+
+[ext_resource type="Script" path="res://src/element/hive/hive.gd" id="1_pupvh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rpvha"]
+size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5qct3"]
+size = Vector2(120, 120)
+
+[node name="Hive" type="RigidBody2D" groups=["hive"]]
+collision_layer = 1024
+collision_mask = 65
+script = ExtResource("1_pupvh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rpvha")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 1024
+collision_mask = 98
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_5qct3")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.811668, 0.426115, 3.85046e-07, 1)
+polygon = PackedVector2Array(-50, -50, 50, -50, 50, 50, -50, 50)

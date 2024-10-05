@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://q52bvrq4v200"]
+
+[ext_resource type="Texture2D" uid="uid://3diah0ki6typ" path="res://src/particle/bullet_pop/bullet_pop_wall.png" id="1_botdk"]
+[ext_resource type="Script" path="res://src/particle/bullet_pop/bullet_pop_wall.gd" id="1_k7g11"]
+
+[sub_resource type="Curve" id="Curve_ogwcw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2to4j"]
+curve = SubResource("Curve_ogwcw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ophhc"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 133.0
+initial_velocity_max = 209.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -150.0
+linear_accel_max = -150.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_2to4j")
+
+[node name="BulletPopWall" type="GPUParticles2D"]
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_ophhc")
+texture = ExtResource("1_botdk")
+one_shot = true
+preprocess = 0.05
+speed_scale = 1.35
+explosiveness = 1.0
+fixed_fps = 60
+interpolate = false
+script = ExtResource("1_k7g11")
