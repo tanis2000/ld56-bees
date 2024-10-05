@@ -79,9 +79,10 @@ func game_over():
 func start_game():
 	spawn_bees()
 	spawn_wasps()
+	Audio.play(preload("res://src/sfx/theme.wav"), 1, 1, "music")
 
 func spawn_bees():
-	Global.player.do_spawn_bee()
+	Global.player.do_spawn_bee(true)
 
 func spawn_wasps():
 	var pos:Vector2 = wasps_home.position

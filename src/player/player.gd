@@ -216,14 +216,23 @@ func do_attack_wasps():
 		return
 
 	for bee in bees:
-		bee.chase_target(wasps[0])
+		if wasps.size() > 0:
+			bee.chase_target(wasps[0])
+			wasps.pop_front()
 		pass
 
-func do_spawn_bee():
-	var pos:Vector2 = Global.main.bees_home.position
-	pos.x += randf_range(-100, 100)
-	pos.y += randf_range(-100, 100)
-	Utils.spawn(Bee, pos, Global.main.gameArea)
+func do_spawn_bee(force: bool = false):
+	if Global.state.wax > 0 or force:
+		if !force:
+			Global.state.wax -= 1
+
+		var pos:Vector2 = Global.main.bees_home.position
+		pos.x += randf_range(-100, 100)
+		pos.y += randf_range(-100, 100)
+		Utils.spawn(Bee, pos, Global.main.gameArea)
+	else:
+		Utils.spawn(ActionLabel, Vector2.ZERO, Global.main.actions, {t = "Not enough wax!"})
+		Audio.play(preload("res://src/sfx/wrong.wav"), 0.8, 1.2)
 
 func do_pick_wax():
 	var bees = get_tree().get_nodes_in_group("bee").filter(func a(b):

@@ -50,3 +50,10 @@ func kill():
 
 func heal(amount: float = 1.0):
 	Global.state.health += amount
+	var sc :float = 1.0 * Global.state.health / Global.state.max_health
+	visual.scale.x = sc
+	visual.scale.y = sc
+	bodyShape.scale.x = sc
+	bodyShape.scale.y = sc
+	areaShape.scale.x = sc
+	areaShape.scale.y = sc
