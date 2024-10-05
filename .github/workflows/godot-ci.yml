@@ -34,7 +34,7 @@ jobs:
       - name: Upload to itch.io
         run: |
           export BUTLER_API_KEY=${{ secrets.BUTLER_API_KEY }}
-          butler push build/windows tanis2000/badabees:windows
+          butler push build/windows tanis/badabees:windows
 
   export-linux:
     name: Linux Export
