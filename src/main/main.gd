@@ -99,7 +99,7 @@ func spawn_wasps():
 func upload_score():
 	var data := "{\"score\":{0}}".format([Global.state.time_elapsed])
 	print(data)
-	var url := "https://podium.altralogica.it/l/binocle-example/members/{0}/score".format([Global.options.name])
+	var url := "https://podium.altralogica.it/l/ld56-bees/members/{0}/score".format([Global.options.name])
 	print(url)
 	http.request(url, [], HTTPClient.METHOD_PUT, data)
 

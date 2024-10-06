@@ -7,6 +7,7 @@ extends Node2D
 @onready var name_input = $Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/NameTextEdit
 @onready var audio = $Audio
 @onready var error_label = $Panel/VBoxContainer/HBoxContainer/VBoxContainer/ErrorLabel
+@onready var LeaderboardItem = preload("res://src/ui/leaderboard_item/leaderboard_item.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,15 +21,15 @@ func _ready():
 	quit_button.pressed.connect(_on_quit_pressed)
 	name_input.text_changed.connect(_on_name_changed)
 	http.request_completed.connect(_on_request_completed)
-	http.request("https://podium.altralogica.it/l/binocle-example/top/0?pageSize=10")
+	http.request("https://podium.altralogica.it/l/ld56-bees/top/0?pageSize=10")
 
 func _on_request_completed(result, response_code, headers, body):
 	var json = JSON.parse_string(body.get_string_from_utf8())
 	print(json)
 	for member in json["members"]:
-		var label := Label.new()
-		label.text = "{0}. {1} {2}".format([member["rank"], Utils.hms(member["score"]), member["publicID"]])
-		leaderboard.add_child(label)
+		var item := LeaderboardItem.instantiate()
+		item.text = "{0}. {1} {2}".format([member["rank"], Utils.hms(member["score"]), member["publicID"]])
+		leaderboard.add_child(item)
 
 func _on_start_pressed():
 	if Global.options.name != "":

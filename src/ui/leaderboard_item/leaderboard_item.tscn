@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dneqy6qjfpfmt"]
+
+[ext_resource type="Script" path="res://src/ui/leaderboard_item/leaderboard_item.gd" id="1_k3au8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ugh14"]
+font_size = 20
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[node name="LeaderboardItem" type="Label"]
+custom_minimum_size = Vector2(0, 32)
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Leaderboard Item"
+label_settings = SubResource("LabelSettings_ugh14")
+script = ExtResource("1_k3au8")
