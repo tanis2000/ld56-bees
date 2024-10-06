@@ -234,7 +234,10 @@ func do_spawn_bee(force: bool = false):
 		pos.y += randf_range(-100, 100)
 		Utils.spawn(Bee, pos, Global.main.gameArea)
 	else:
-		Utils.spawn(ActionLabel, Vector2.ZERO, Global.main.actions, {t = "Not enough wax!"})
+		if bees.size() >= 5:
+			Utils.spawn(ActionLabel, Vector2.ZERO, Global.main.actions, {t = "You cannot have more bees!"})
+		else:
+			Utils.spawn(ActionLabel, Vector2.ZERO, Global.main.actions, {t = "Not enough wax!"})
 		Audio.play(preload("res://src/sfx/wrong.wav"), 0.8, 1.2)
 
 func do_pick_wax():
